@@ -7,9 +7,14 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
 
-  <title></title>
+  <title>You Got FriendZ</title>
 </head>
 <body>
+  <% if @current_user %>
+    <a href='/logout'>Log Out </a>
+  <% else %>
+    <a href='/login'>Log In</a> | <a href='/signup'> Sign Up </a>
+  <% end %>
   <%= yield %>
 </body>
 </html>
