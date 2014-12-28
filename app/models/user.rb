@@ -3,15 +3,18 @@ class User < ActiveRecord::Base
   validates :username, :presence => true
   validates :email, :uniqueness => true
 
-  has_many  :friends, foreign_key: :from_user_id, :class_name: "Friendship", table_name: "friendships"
-  has_many  :potential_friends, source: :to_user, through: :friends
-
-  has_many :reverse_friendships, class_name: "Friendship", foreign_key: :user2_id
   has_many :friendships
-  has_many  :friends, through: :friendships, class_name: "User"
-  has_many  :reverse_friends, class_name: "User", through: :reverse_friendships
+  has_many :friends, :through => :friendships
+  has_many :reverse_friendships, :class_name => 'Friendship', :foreign_key => 'friend_id'
+  has_many :reverse_friends, :through => :reverse_friendships, :source => :user
 
-  def find_friends
+  def friendship_with(friend_id)
+    Friendship.of_user(self.id).where('user_id = ? or friend_id = ?', friend_id, friend_id)
   end
+
+  def friends_with?(other_user)
+    Friendship.of_user(self.id).where('user_id = ? or friend_id = ?', other_user, other_user).any?
+  end
+
 end
 
