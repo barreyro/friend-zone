@@ -1,5 +1,6 @@
 get '/' do
   @users = User.all
+  @friendships = Friendship.all
   erb :index
 end
 
@@ -8,11 +9,9 @@ get '/signup' do
 end
 
 post '/signup' do
-  puts params[:user]
-  @user = User.new(params[:user])
-
-  if @user.save
-    session[:user_id] = @user.id
+  user = User.new(params[:user])
+  if user.save
+    session[:user_id] = user.id
     redirect '/'
   else
     redirect '/signup'
@@ -37,3 +36,4 @@ get '/logout' do
   session[:user_id] = nil
   redirect '/'
 end
+
