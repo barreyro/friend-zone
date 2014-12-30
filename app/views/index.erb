@@ -1,9 +1,10 @@
 <div class="container">
   <% @users.each do |user| %>
-    <% @user = user.id %>
+
     <%= user.username %>
-    <form id="add" method="post" action="/addfriend">
-    <div class="submit"><input type="submit" value="Add friend"></div>
+    <form id="add" method="post" action="/addfriend/<%= user.id %>">
+      <input type="hidden" name="_method" value="post">
+      <div class="submit"><input type="submit" value="Add friend"></div>
     </form>
 
     <a href="/delete"> Delete </a>
