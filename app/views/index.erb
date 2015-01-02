@@ -1,21 +1,29 @@
 <div class="container">
+<% if current_user %>
   <% @users.each do |user| %>
-
+    <div class="user.<%=user.id %>">
     <%= user.username %>
     <form id="add" method="post" action="/addfriend/<%= user.id %>">
       <input type="hidden" name="_method" value="post">
-      <div class="submit"><input type="submit" value="Add friend"></div>
+      <div class="submit"><input type="submit" value="Friend"></div>
     </form>
-
-    <a href="/delete"> Delete </a>
-    <a href="/hide"> Hide </a>
+    <button type="button" value="Hide">Hide </button>
     <br>
+    </div>
   <% end %>
 
 <br><Br>
 <h1>Friendships:</h1>
+  <%= session[:user_id] %><br>
+  <% @user_id = session[:user_id] %>
+  <% friend_arr = [] %>
   <% @friendships.each do |friend| %>
-
-    <%= friend.id %>
+  <% if friend.friend_id == @user_id || friend.friendee_id == @user_id %>
+    <% friend_arr.insert(0, friend.id) %>
+    <% end %>
   <% end %>
+  <%= friend_arr %>
+<% else %>
+  <%= p "Sign Up to meet Friendz!" %>
+<% end %>
 </div>

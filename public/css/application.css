@@ -2,8 +2,17 @@
   margin: 20px auto;
   width: 600px;
   padding: 0px 20px 20px 20px;
-  border: 1px dotted black;
+  border: 1px solid black;
+  background-color: white;
 }
 th {
   text-align: left;
 }
+body {
+  background: url('http://i628.photobucket.com/albums/uu7/EdwardSS/NubesdeToyStory.jpg');
+  color: grey;
+}
+a {
+  color: black;
+}
+
