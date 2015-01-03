@@ -1,28 +1,47 @@
 <div class="container">
 <% if current_user %>
-  <% @users.each do |user| %>
-    <div class="user.<%=user.id %>">
-    <%= user.username %>
-    <form id="add" method="post" action="/addfriend/<%= user.id %>">
-      <input type="hidden" name="_method" value="post">
-      <div class="submit"><input type="submit" value="Friend"></div>
-    </form>
-    <button type="button" value="Hide">Hide </button>
-    <br>
-    </div>
-  <% end %>
+  <div class="grid">
+    <% @users.each do |user| %>
+      <div class="userPics.<% user.id%>">
+      <%= user.username %>
+      <form id="add<%= user.username%>" method="post" action="/addfriend/<%= user.id %>">
+        <input type="hidden" name="_method" value="post">
+        <div class="submit"><input type="submit" value="Friend"></div>
+      </form>
+      <input type='button' id='hideuser' value= 'Hide'>
+      <br>
+      </div>
+    <% end %>
+  </div>
 
 <br><Br>
-<h1>Friendships:</h1>
-  <%= session[:user_id] %><br>
-  <% @user_id = session[:user_id] %>
-  <% friend_arr = [] %>
+<h1>People you friended:</h1>
+
+  <%= @user_id = session[:user_id] %>
+  <% friendee_arr = [] %>
+  <% friendship_arr = [] %>
+  <% matches_arr = [] %>
   <% @friendships.each do |friend| %>
-  <% if friend.friend_id == @user_id || friend.friendee_id == @user_id %>
-    <% friend_arr.insert(0, friend.id) %>
+    <% if friend.friendee_id == @user_id %>
+      <% friendee_arr << friend.id %>
     <% end %>
   <% end %>
-  <%= friend_arr %>
+  <% @friendships.each do |friend| %>
+    <% if friend.friend_id == @user_id %>
+      <% friendship_arr << friend.id %>
+    <% end %>
+  <% end %>
+<%= friendee_arr %>
+<h1>You got friendz! </h1>
+<%= friendship_arr %>
+<% friendship_arr.each do |match| %>
+  <% friendee_arr.each do |matchee| %>
+    <% if match == matchee %>
+      <% matches_arr << match %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= p matches_arr %>
 <% else %>
   <%= p "Sign Up to meet Friendz!" %>
 <% end %>

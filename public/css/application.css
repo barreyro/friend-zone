@@ -18,3 +18,11 @@ a {
   font-family: 'Poiret One', cursive;
 }
 
+.grid {
+  max-height: 400px;
+}
+
+.userPics {
+  max-width: 200px;
+  position: relative;
+}
