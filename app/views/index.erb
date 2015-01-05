@@ -31,7 +31,11 @@
       <% friendship_arr << friend.id %>
     <% end %>
   <% end %>
-<%= friendee_arr %>
+<% friendee_arr.each do |num| %>
+<%  x = User.find_by(id: num) %>
+<%=  x.username %> <br>
+<% end %>
+
 <h1>You got friendz! </h1>
 <%= friendship_arr %>
 <% friendship_arr.each do |match| %>
