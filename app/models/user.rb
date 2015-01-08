@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
-  validates :username, :presence => true
+  validates :username
   validates :email, :uniqueness => true
 
   has_many :friendships, :foreign_key => 'friendee'
